@@ -59,21 +59,21 @@ A CKIP Lab project on applying [Llama-Omni](https://github.com/ictnlp/LLaMA-Omni
 
 ## Usage
 ### Train
-#### Stage1    
+- Stage1:   
 ```
 bash omni_speech/train/run_stage1.sh
 ```
-#### Stage2
+- Stage2:
 ```
 bash omni_speech/train/run_stage2.sh
 ```
 
 ### Inference
-#### Stage1
+- Stage1:
 ```
 bash omni_speech/infer/run_infer1.sh speechocean/
 ```
-#### Stage2
+- Stage2:
 ```
 bash omni_speech/infer/run_infer2.sh speechocean/
 ```
@@ -84,23 +84,24 @@ bash omni_speech/infer/unit2wav.sh
 ```
 The result files are in `/speechocean/speech_units`.
 
+
 ### wav2unit (prepare training data for stage2)
 Steps:  
 ![Demo](speechocean/images/wav2unit.png)
-#### Step1: Generate .tsv
+- Step1: Generate .tsv
 ```
 python speechocean/generate_tsv.py
 ```
 Current tsv files are in `/speechocean`.
-#### Step2: Generate .npy & .len
+- Step2: Generate .npy & .len
 ```
 bash run_dump_hubert_feature.sh
 ```
-#### Step3: Generate .km
+- Step3: Generate .km
 ```
 bash run_dump_km_label.sh
 ```
-#### Step4: Prepare data for stage2
+- Step4: Prepare data for stage2
 ```
 python speechocean/prepare_data_s2.py
 ```
