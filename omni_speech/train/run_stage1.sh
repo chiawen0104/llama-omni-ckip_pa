@@ -12,8 +12,8 @@ export MODEL_PATH='Llama-3.1-8B-Omni'
 
 python omni_speech/train/stage1.py \
     --model-path Llama-3.1-8B-Omni \
-    --train-file librispeech/data/train.json \
-    --valid-file librispeech/data/dev.json \
+    --train-file speechocean/train.json \
+    --valid-file speechocean/dev.json \
     --train_batch_size 2 \
     --eval_batch_size 2 \
     --gradient_accumulation_steps 32 \
@@ -25,6 +25,6 @@ python omni_speech/train/stage1.py \
     --input_type mel \
     --mel_size 128 \
     --num_train_epochs 5 \
-    --output_dir /work/twsmwhk715/saves/stage1/omni-5e-ls \
-    --run_name "omni-5e-ls-s1" \
+    --output_dir /work/twsmwhk715/saves/stage1/omni-5e \
+    --run_name "omni-5e-s1" \
 
