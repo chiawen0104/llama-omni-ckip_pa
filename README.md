@@ -67,6 +67,7 @@ bash omni_speech/train/run_stage1.sh
 ```
 bash omni_speech/train/run_stage2.sh
 ```
+
 ### Inference
 #### Stage1
 ```
@@ -76,9 +77,58 @@ bash omni_speech/infer/run_infer1.sh speechocean/
 ```
 bash omni_speech/infer/run_infer2.sh speechocean/
 ```
+
+### unit2wav
+```
+bash omni_speech/infer/unit2wav.sh
+```
+
 ### wav2unit (prepare training data for stage2)
-Step1: ```bash run_dump_hubert_feature.sh```   
-Step2: ```bash run_dump_km_label.sh```
+The steps are:  
+![Demo](speechocean/images/wav2unit.png)
+#### Step1: Generate .tsv
+```
+python speechocean/generate_tsv.py
+```
+Current tsv files are in `/speechocean`
+#### Step2: Generate .npy & .len
+```
+bash run_dump_hubert_feature.sh
+```
+#### Step3: Generate .km
+```
+bash run_dump_km_label.sh
+```
+#### Step4: Prepare data for stage2
+```
+python speechocean/prepare_data_s2.py
+```
+
+### PCC Evaluation on Stage 1 Predictions
+```
+python speechocean/eval_pcc.py
+```
+
+## Dataset: speechocean762
+### Data Split
+I split 500 samples from the original training set to serve as the validation set, while keeping the testing set unchanged.
+|  | original | this repo |
+|------|------|------|
+| train | 2500 | 2000 |
+| valid | x | 500 |
+| test | 2500 | 2500 |
+
+`train.josn`, `valid.json`, and `test.josn` are in `speechocean/`. You can view score label distribution from images in `speechocean/images`.
+
+### Stage2 Data
+Files are in `speechocean/stage2_data`
+
+### Dataset Links
+1. [Git hub](https://github.com/jimbozhang/speechocean762)
+2. [Huggingface](https://huggingface.co/datasets/mispeech/speechocean762)
 
 
+## Predictions
 
+## Use other Llama Models
+You can replace `Llama-Omni` with other Llama as base model such as [Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) and [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) for fine-tuning. You should download models from huggingface and adpat `config.json`. Use files in `/configs` if you need them.
