@@ -67,6 +67,7 @@ bash omni_speech/train/run_stage1.sh
 ```
 bash omni_speech/train/run_stage2.sh
 ```
+If an OOM issue occurs during training, you can try reducing the batch size or the size of the validation set.
 
 ### Inference
 - Stage1:
@@ -120,7 +121,7 @@ I split 500 samples from the original training set to serve as the validation se
 | valid | x | 500 |
 | test | 2500 | 2500 |
 
-`train.josn`, `valid.json`, and `test.josn` are in `speechocean/`. You can view score label distribution from images in `speechocean/images`.
+`train.json`, `valid.json`, and `test.json` are in `speechocean/`. You can view score label distribution from images in `speechocean/images`.
 
 ### Stage2 Data
 Files are in `speechocean/stage2_data`.
