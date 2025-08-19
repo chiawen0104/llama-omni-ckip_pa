@@ -56,6 +56,7 @@ A CKIP Lab project on applying [Llama-Omni](https://github.com/ictnlp/LLaMA-Omni
    wget https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3_L11_km1000.bin -P models/wav2unit
    ```
 6. Download wav files from [speechocean762](https://github.com/jimbozhang/speechocean762) and put them in `speechocean/WAVE`.
+7. Download speech files (dev-clean, test-clean, and train-clean-100) from [librispeech](https://www.openslr.org/12) and put them in `librispeech/LibriSpeech`.
 
 ## Usage
 ### Train
@@ -112,8 +113,9 @@ python speechocean/prepare_data_s2.py
 python speechocean/eval_pcc.py
 ```
 
-## Dataset: speechocean762
-### Data Split
+## Dataset
+### speechocean762
+#### Data Split
 I split 500 samples from the original training set to serve as the validation set, while keeping the testing set unchanged.
 |  | original | this repo |
 |------|------|------|
@@ -123,22 +125,31 @@ I split 500 samples from the original training set to serve as the validation se
 
 `train.json`, `valid.json`, and `test.json` are in `speechocean/`. You can view score label distribution from images in `speechocean/images`.
 
-### Stage2 Data
+#### Stage2 Data
 Files are in `speechocean/stage2_data`.
 
-### Dataset Links
+#### Dataset Links
 1. [Git hub](https://github.com/jimbozhang/speechocean762)
 2. [Huggingface](https://huggingface.co/datasets/mispeech/speechocean762)
 
+### [LibriSpeech](https://www.openslr.org/12)
+|split|number of speech file| 
+|------|------|
+| train | 28539 |
+| dev | 2703 | 
+| test | 2620 | 
+
+`train.json`, `dev.json`, `test.json`, tsv files, and stage2 data are both in `librispeech/data`.
 
 ## Use other Llama Models
 You can replace `Llama-Omni` with other Llama models as base model such as [Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) and [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) for fine-tuning. You should download models from huggingface and adpat `config.json`, please refer files in `configs/`.
 
 
 ## Predictions Directory Structure
-Note: 檔名有幾e代表是被訓練過幾個epoch的模型的輸出
+第一階段是`8b-omni-10e-accu`可取得最好PCC結果，第二階段尚未測試出成功生成符合分數的語音。  
+(Note: 檔名有幾e代表是被訓練過幾個epoch的模型的輸出)
 ```text
-predictions/
+speechocean/predictions/
 ├── stage1/                         # 第一階段模型預測結果
 │   ├── 1shot/                      # Prompt 加上分數輸出範例的無微調模型推論結果
 │   ├── asr/                        # ASR 任務推論結果
@@ -156,4 +167,10 @@ predictions/
     ├── target_refer_random/        # 給 Llama-Omni 一段發音與目標分數、隨機產生的錯誤分數，叫它生出對應目標分數的語音 (未訓練)
     └── target_refer_score/         # 給 Llama-Omni 一段發音與一組固定參考分數與不同目標分數，叫它生出對應目標分數的語音 (未訓練)，測試是否能針對每個指標的分數做出變化
 ```
-第一階段是`8b-omni-10e-accu`可取得最好PCC結果，第二階段尚未測試出成功生成符合分數的語音。
+```text
+librispeech/predictions/
+├── omni-5e-lbs/                         # TTS任務測試集預測結果
+│   ├── answer_wav/
+│   ├── answer.json/
+│   ├── answer.unit/   
+```
