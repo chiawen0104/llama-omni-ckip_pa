@@ -56,7 +56,7 @@ A CKIP Lab project on applying [Llama-Omni](https://github.com/ictnlp/LLaMA-Omni
    wget https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3_L11_km1000.bin -P models/wav2unit
    ```
 6. Download wav files from [speechocean762](https://github.com/jimbozhang/speechocean762) and put them in `speechocean/WAVE`.
-7. Download speech files (dev-clean, test-clean, and train-clean-100) from [librispeech](https://www.openslr.org/12) and put them in `librispeech/LibriSpeech`.
+7. (optional) Download speech files (dev-clean, test-clean, and train-clean-100) from [librispeech](https://www.openslr.org/12) and put them in `librispeech/LibriSpeech`.
 
 ## Usage
 ### Train
